@@ -49,5 +49,29 @@ public class MyArrayListTest {
         list1.clear();
         System.out.println("list1 after clear: " + list1); // {}
         System.out.println("list1 isEmpty: " + list1.isEmpty()); // true
+
+        // Test null values
+        MyArrayList<Integer> list4 = new MyArrayList<>();
+        list4.add(null);
+        list4.add(1);
+        list4.add(null);
+        System.out.println("list4 after adding nulls: " + list4); // {null, 1, null}
+        System.out.println("list4 size after adding nulls: " + list4.size()); // 3
+        System.out.println("list4 contains null: " + list4.contains(null)); // true
+        System.out.println("list4 index of null: " + list4.indexOf(null)); // 0
+        System.out.println("list4 last index of null: " + list4.lastIndexOf(null)); // 2
+        list4.remove(null);
+        System.out.println("list4 after removing first null: " + list4); // {1, null}
+        System.out.println("list4 size after removing first null: " + list4.size()); // 2
+
+        // Test set and get with null values
+        list4.set(1, null);
+        System.out.println("list4 after setting null at index 1: " + list4); // {1, null}
+        System.out.println("list4 get index 1: " + list4.get(1)); // null
+
+        // Test clear and isEmpty with null values
+        list4.clear();
+        System.out.println("list4 after clear: " + list4); // {}
+        System.out.println("list4 isEmpty: " + list4.isEmpty()); // true
     }
 }

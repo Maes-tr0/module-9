@@ -66,7 +66,7 @@ public class MyArrayList<T> implements MyList<T> {
     @Override
     public int indexOf(T item) {
         for (int i = 0; i < size; i++) {
-            if (dataElements[i].equals(item)) {
+            if (Objects.equals(dataElements[i], item)) {
                 return i;
             }
         }
@@ -77,7 +77,7 @@ public class MyArrayList<T> implements MyList<T> {
     public int lastIndexOf(T item) {
         int index = -1;
         for (int i = 0; i < size; i++) {
-            if (dataElements[i].equals(item)) {
+            if (Objects.equals(dataElements[i], item)) {
                 index = i;
             }
         }
@@ -92,7 +92,7 @@ public class MyArrayList<T> implements MyList<T> {
     @Override
     public boolean contains(T item) {
         for (int i = 0; i < size; i++) {
-            if (dataElements[i].equals(item)) {
+            if (Objects.equals(dataElements[i], item)) {
                 return true;
             }
         }
@@ -145,7 +145,7 @@ public class MyArrayList<T> implements MyList<T> {
     public String toString() {
         StringJoiner jr = new StringJoiner(", ", "{", "}");
         for (int i = 0; i < size; i++) {
-            jr.add(dataElements[i].toString());
+            jr.add(String.valueOf(dataElements[i]));
         }
         return jr.toString();
     }

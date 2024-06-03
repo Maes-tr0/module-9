@@ -45,5 +45,29 @@ public class MyLinkedListTest {
         linkedList.clear();
         System.out.println("LinkedList after clear: " + linkedList); // {}
         System.out.println("LinkedList isEmpty: " + linkedList.isEmpty()); // true
+
+        // Test null values
+        MyLinkedList<String> linkedListWithNulls = new MyLinkedList<>();
+        linkedListWithNulls.add(null);
+        linkedListWithNulls.add("a");
+        linkedListWithNulls.add(null);
+        System.out.println("LinkedList with nulls after add: " + linkedListWithNulls); // {null, a, null}
+        System.out.println("LinkedList with nulls size after add: " + linkedListWithNulls.size()); // 3
+        System.out.println("LinkedList with nulls contains null: " + linkedListWithNulls.contains(null)); // true
+        System.out.println("LinkedList with nulls index of null: " + linkedListWithNulls.indexOf(null)); // 0
+        System.out.println("LinkedList with nulls last index of null: " + linkedListWithNulls.lastIndexOf(null)); // 2
+        linkedListWithNulls.remove(null);
+        System.out.println("LinkedList with nulls after removing first null: " + linkedListWithNulls); // {a, null}
+        System.out.println("LinkedList with nulls size after removing first null: " + linkedListWithNulls.size()); // 2
+
+        // Test set and get with null values
+        linkedListWithNulls.set(1, null);
+        System.out.println("LinkedList with nulls after setting null at index 1: " + linkedListWithNulls); // {a, null}
+        System.out.println("LinkedList with nulls get index 1: " + linkedListWithNulls.get(1)); // null
+
+        // Test clear and isEmpty with null values
+        linkedListWithNulls.clear();
+        System.out.println("LinkedList with nulls after clear: " + linkedListWithNulls); // {}
+        System.out.println("LinkedList with nulls isEmpty: " + linkedListWithNulls.isEmpty()); // true
     }
 }

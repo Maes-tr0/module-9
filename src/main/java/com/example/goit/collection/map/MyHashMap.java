@@ -16,7 +16,7 @@ public class MyHashMap<K, V> implements MyMap<K, V> {
 
         @Override
         public String toString() {
-            return "\"" + key + "\"" + value;
+            return "\"" + key + "\": \"" + value + "\"";
         }
     }
 
@@ -24,7 +24,7 @@ public class MyHashMap<K, V> implements MyMap<K, V> {
     private Entry<K, V>[] table;
     private int size;
 
-    public MyHashMap(){
+    public MyHashMap() {
         table = new Entry[DEFAULT_INITIAL_CAPACITY];
     }
 
@@ -56,20 +56,21 @@ public class MyHashMap<K, V> implements MyMap<K, V> {
     *
     * */
 
+
     @Override
     public void put(K key, V value) {
         int indexInHashMap = getIndex(getHashCode(key));
         Entry<K, V> currentEntry = table[indexInHashMap];
 
-        if(currentEntry == null) {
+        if (currentEntry == null) {
             table[indexInHashMap] = new Entry<>(key, value);
         } else {
-            while(true) {
-                if (getHashCode(key) == getHashCode(currentEntry.key) && currentEntry.key.equals(key)) {
+            while (true) {
+                if (getHashCode(key) == getHashCode(currentEntry.key) && Objects.equals(currentEntry.key, key)) {
                     currentEntry.value = value;
                     return;
                 }
-                if(currentEntry.next == null) {
+                if (currentEntry.next == null) {
                     break;
                 }
                 currentEntry = currentEntry.next;
@@ -79,39 +80,12 @@ public class MyHashMap<K, V> implements MyMap<K, V> {
         size++;
     }
 
-    /*
-    @Override
-    public void put(K key, V value) {
-        int indexInHashMap = getIndex(getHashCode(key));
-        Entry<K, V> currentEntry = table[indexInHashMap];
-
-        if (currentEntry == null) {
-            table[indexInHashMap] = new Entry<>(key, value);
-            size++;
-            return;
-        }
-
-        while (currentEntry != null) {
-            if (currentEntry.key.equals(key)) {
-                currentEntry.value = value;
-                return;
-            }
-            if (currentEntry.next == null) {
-                currentEntry.next = new Entry<>(key, value);
-                size++;
-                return;
-            }
-            currentEntry = currentEntry.next;
-        }
-    }
-     */
-
-    private int getIndex(int hashCode){
+    private int getIndex(int hashCode) {
         return Math.abs(hashCode % table.length);
     }
 
-    private int getHashCode(K key){
-        return key.hashCode();
+    private int getHashCode(K key) {
+        return key == null ? 0 : key.hashCode();
     }
 
     @Override
@@ -130,7 +104,7 @@ public class MyHashMap<K, V> implements MyMap<K, V> {
         Entry<K, V> currentEntry = table[indexInHashMap];
 
         while (currentEntry != null) {
-            if (currentEntry.key.equals(key)) {
+            if (Objects.equals(currentEntry.key, key)) {
                 return currentEntry.value;
             }
             currentEntry = currentEntry.next;
@@ -139,6 +113,28 @@ public class MyHashMap<K, V> implements MyMap<K, V> {
         return null;
     }
 
+    @Override
+    public V remove(K key) {
+        int indexInHashMap = getIndex(getHashCode(key));
+        Entry<K, V> currentEntry = table[indexInHashMap];
+        Entry<K, V> previousEntry = null;
+
+        while (currentEntry != null) {
+            if (Objects.equals(currentEntry.key, key)) {
+                if (previousEntry == null) {
+                    table[indexInHashMap] = currentEntry.next;
+                } else {
+                    previousEntry.next = currentEntry.next;
+                }
+                size--;
+                return currentEntry.value;
+            }
+            previousEntry = currentEntry;
+            currentEntry = currentEntry.next;
+        }
+
+        return null;
+    }
 
     @Override
     public String toString() {

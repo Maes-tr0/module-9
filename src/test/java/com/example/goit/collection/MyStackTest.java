@@ -37,5 +37,27 @@ public class MyStackTest {
 
         // Test toString
         System.out.println("Stack toString: " + stack); // {30}
+
+        // Test with null values
+        MyStack<Integer> stackWithNulls = new MyStack<>();
+        stackWithNulls.push(null);
+        stackWithNulls.push(10);
+        stackWithNulls.push(null);
+        System.out.println("Stack with nulls after push: " + stackWithNulls); // {null, 10, null}
+        System.out.println("Stack with nulls size after push: " + stackWithNulls.size()); // 3
+
+        System.out.println("Stack with nulls contains null: " + stackWithNulls.contains(null)); // true
+
+        System.out.println("Stack with nulls pop: " + stackWithNulls.pop()); // null
+        System.out.println("Stack with nulls after pop: " + stackWithNulls); // {10, null}
+        System.out.println("Stack with nulls size after pop: " + stackWithNulls.size()); // 2
+
+        System.out.println("Stack with nulls remove null: " + stackWithNulls.remove(null)); // null
+        System.out.println("Stack with nulls after remove null: " + stackWithNulls); // {10}
+        System.out.println("Stack with nulls size after remove null: " + stackWithNulls.size()); // 1
+
+        stackWithNulls.clear();
+        System.out.println("Stack with nulls after clear: " + stackWithNulls); // {}
+        System.out.println("Stack with nulls isEmpty: " + stackWithNulls.isEmpty()); // true
     }
 }

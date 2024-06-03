@@ -1,5 +1,6 @@
 package com.example.goit.collection.list;
 
+import java.util.Objects;
 import java.util.StringJoiner;
 
 public class MyStack<T> {
@@ -30,7 +31,7 @@ public class MyStack<T> {
     public boolean contains(T data) {
         Node<T> current = top;
         while (current != null) {
-            if (data.equals(current.data)) {
+            if (Objects.equals(current.data, data)) {
                 return true;
             }
             current = current.next;
@@ -73,23 +74,26 @@ public class MyStack<T> {
     public T remove(T data) {
         if (top == null) {
             return null;
-        } else if (top.data.equals(data)) {
+        } else if (Objects.equals(top.data, data)) {
             return pop();
         } else {
             Node<T> current = top;
             while (current.next != null) {
-                if(!current.next.data.equals(data)){
-                    current = current.next;
+                if (Objects.equals(current.next.data, data)) {
+                    T removedData = current.next.data;
+                    current.next = current.next.next;
+                    size--;
+                    return removedData;
                 }
-            }
-            if (current.next != null) {
-                T removedData = current.next.data;
-                current.next = current.next.next;
-                size--;
-                return removedData;
+                current = current.next;
             }
         }
         return null;
+    }
+
+    public void clear(){
+        top = null;
+        size = 0;
     }
 
     @Override

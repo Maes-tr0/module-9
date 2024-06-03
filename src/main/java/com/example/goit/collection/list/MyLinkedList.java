@@ -98,7 +98,7 @@ public class MyLinkedList<T> implements MyList<T> {
     public int indexOf(T item) {
         Node<T> currentNode = head;
         for (int i = 0; i < size; i++) {
-            if (currentNode.data.equals(item)) {
+            if (Objects.equals(currentNode.data, item)) {
                 return i;
             }
             currentNode = currentNode.next;
@@ -111,7 +111,7 @@ public class MyLinkedList<T> implements MyList<T> {
         int index = -1;
         Node<T> currentNode = head;
         for (int i = 0; i < size; i++) {
-            if (currentNode.data.equals(item)) {
+            if (Objects.equals(currentNode.data, item)) {
                 index = i;
             }
             currentNode = currentNode.next;
@@ -133,15 +133,23 @@ public class MyLinkedList<T> implements MyList<T> {
     public T remove(int index) {
         Objects.checkIndex(index, size);
         Node<T> currentNode = head;
-        T data = null;
+        T data;
         if (index == 0) {
             data = head.data;
             head = head.next;
-            head.prev = null;
+            if (head != null) {
+                head.prev = null;
+            } else {
+                tail = null;
+            }
         } else if (index == size - 1) {
             data = tail.data;
             tail = tail.prev;
-            tail.next = null;
+            if (tail != null) {
+                tail.next = null;
+            } else {
+                head = null;
+            }
         } else {
             for (int i = 0; i < index; i++) {
                 currentNode = currentNode.next;
@@ -205,7 +213,7 @@ public class MyLinkedList<T> implements MyList<T> {
         StringJoiner jr = new StringJoiner(", ", "{", "}");
         Node<T> currentNode = head;
         while (currentNode != null) {
-            jr.add(currentNode.data.toString());
+            jr.add(String.valueOf(currentNode.data));
             currentNode = currentNode.next;
         }
         return jr.toString();

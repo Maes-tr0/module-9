@@ -38,5 +38,27 @@ public class MyHashMapTest {
         myHashMap.put("BB", 2);
         System.out.println("Value for key 'Aa': " + myHashMap.get("Aa")); // Очікується: 1
         System.out.println("Value for key 'BB': " + myHashMap.get("BB")); // Очікується: 2
+
+        // Перевірка значення null як ключ
+        myHashMap.put(null, 100);
+        System.out.println("Value for key 'null': " + myHashMap.get(null)); // Очікується: 100
+
+        // Перевірка видалення елементів
+        System.out.println("Remove key 'one': " + myHashMap.remove("one")); // Очікується: 10
+        System.out.println("Size after removing key 'one': " + myHashMap.size()); // Очікується: 1006
+        System.out.println("Remove key 'null': " + myHashMap.remove(null)); // Очікується: 100
+        System.out.println("Size after removing key 'null': " + myHashMap.size()); // Очікується: 1005
+
+        // Перевірка видалення елементу, якого немає
+        System.out.println("Remove key 'not_exist': " + myHashMap.remove("not_exist")); // Очікується: null
+
+        // Перевірка видалення null як ключа
+        myHashMap.put(null, 200);
+        System.out.println("Value for key 'null' after re-adding: " + myHashMap.get(null)); // Очікується: 200
+        System.out.println("Remove key 'null' again: " + myHashMap.remove(null)); // Очікується: 200
+        System.out.println("Size after removing key 'null' again: " + myHashMap.size()); // Очікується: 1005
+
+        // Перевірка toString
+        System.out.println("Map toString: " + myHashMap); // Вивести весь вміст карти
     }
 }
